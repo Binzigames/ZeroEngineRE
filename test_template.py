@@ -1,4 +1,4 @@
-from ZEROENGINE.Main import *
+from ZeroEngineRE.ZEROENGINE.Main import *
 
 
 if __name__ == "__main__":
