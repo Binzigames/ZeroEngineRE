@@ -1,10 +1,21 @@
+#-------------> importing
+#befor using zeroehine, be sure that you have installed :
+#raylib
+#colorama
 import pyray as pr
+import colorama as c
 import sys
+import os
 
 # -----------------> bools
+#W -WindowProperties
 Wx , Wy = 900 , 900
 Wname = "ZEROENGINE"
+# G - Game Properties
+Gfps = 30
 
+#D - debug
+Dcorelog = f" {c.Fore.RED}[CORE] / {c.Fore.WHITE}"
 # -----------------> class
 #Gameobjects used to simplify management of project
 #Types used to draw and optimase of project:
@@ -57,9 +68,32 @@ class GameHandle:
         self.Wname = Wname
         self.objects = []
 
+    def clear_console(self):
+        os.system("cls" if os.name == "nt" else "clear")
+
+    def debug_log(self , type , text= None):
+        if type == None:
+            pass
+        if type == "core":
+            print(Dcorelog + text)
+        elif type == "separate":
+            print(c.Fore.RED +"================" + c.Fore.WHITE)
+        elif type == "logo":
+            print(c.Fore.RED + "ZERO ENGINE REUNION")
+            print(c.Fore.WHITE + "developed by our comunity!")
+            print("{0}link : https://github.com/Binzigames/ZeroEngineRE".format(c.Fore.WHITE))
+
+
+
+
+
     def start_game(self):
         pr.init_window(self.Wx, self.Wy, self.Wname)
-        pr.set_target_fps(60)
+        pr.set_target_fps(Gfps)
+        self.clear_console()
+        self.debug_log("logo")
+        self.debug_log("separate")
+        self.debug_log("core" , "pyray init : success")
 
     def add_object(self, obj):
         obj._handle = self
@@ -78,8 +112,9 @@ class GameHandle:
         self.shutdown()
 
     def shutdown(self):
-        print("ZERO ENGINE IS CLOSING WINDOW")
         pr.close_window()
+        self.clear_console()
+        print(c.Fore.RED + "ZERO ENGINE IS CLOSING WINDOW" + c.Fore.WHITE)
         sys.exit(0)
 
 
